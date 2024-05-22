@@ -19,7 +19,7 @@ namespace StudentAdministration
             Credits = credits;
         }
 
-        public void PrintInfo()
+        public void PrintSubjectInfo()
         {
             Console.WriteLine();
             Console.WriteLine($"Subject:\n" +
@@ -28,5 +28,7 @@ namespace StudentAdministration
                                 $"Credits: {Credits}");
             Console.WriteLine();
         }
+
+
     }
 }

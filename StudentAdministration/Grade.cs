@@ -8,25 +8,26 @@ namespace StudentAdministration
 {
     internal class Grade
     {
-        public Student Student { get; private set; }
+        public int StudentId { get; private set; }
         public Subject Subject { get; private set; }
         public int Value { get; private set; }
 
-        public Grade(Student student, Subject subject, int value)
+        public Grade(int studentId, Subject subject, int value)
         {
-            Student = student;
+            StudentId = studentId;
             Subject = subject;
             Value = value;
         }
 
-        public void PrintInfo()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"Grade: \n" +
-                              $"Student: {Student.Name}\n" +
-                              $"Subject: {Subject.Name}\n" +
-                              $"Grade value: {Value}");
-            Console.WriteLine();
-        }
+        
+        //public void PrintInfo()
+        //{
+        //    Console.WriteLine();
+        //    Console.WriteLine($"Grade: \n" +
+        //                      //$"Student: {Student.Name}\n" +
+        //                      $"Subject: {Subject.Name}\n" +
+        //                      $"Grade value: {Value}");
+        //    Console.WriteLine();
+        //}
     }
 }
