@@ -18,34 +18,35 @@ namespace StudentAdministration
 
         public Student(string name, int age, string program, int id, List<int> subjects)
         {
-            _name = name; 
+            _name = name;
             _age = age;
             _program = program;
             Id = id;
             _studentSubjects = subjects;
         }
 
-        public void AddSubject(int subjectCode)
+        private void AddSubject(int subjectCode)
         {
             _studentSubjects.Add(subjectCode);
         }
 
-        public void RemoveSubject(int subjectCode)
+        private void RemoveSubject(int subjectCode)
         {
             _studentSubjects.Remove(subjectCode);
         }
 
 
-        public void GetSubjectNames(List<Subject> allSubjects)
+        private void GetSubjects(List<Subject> allSubjects)
         {
             foreach (var subject in allSubjects.Where(subject => _studentSubjects.Contains(subject.Code)))
             {
-                Console.WriteLine(subject.Name);
-                
+
+                subject.PrintSubjectInfo();
+
             }
         }
 
-        public string GetName()  // dette er måten man gjør det på om name er private. 
+        public string GetName() // dette er måten man gjør det på om name er private. 
         {
             return _name;
         }
@@ -61,9 +62,10 @@ namespace StudentAdministration
                               $"\n");
         }
 
-        public void HandleInputFirst(List<Subject> allSubjects)
-        {  
-            bool running=true;
+        public void HandleInput1(List<Subject> allSubjects)
+        {
+            AdminSystem system = new AdminSystem();
+            bool running = true;
 
             while (running)
             {
@@ -73,12 +75,12 @@ namespace StudentAdministration
                 {
                     case 1:
                         Console.WriteLine("Currently taking subjects:");
-                        GetSubjectNames(allSubjects);
+                        GetSubjects(allSubjects);
                         running = false;
                         break;
                     case 2:
                         Console.WriteLine("Okay, showing the main menu again:");
-                        // needs help
+                        system.MainMenu();
                         running = false;
                         break;
                     case 3:
@@ -90,12 +92,11 @@ namespace StudentAdministration
                         break;
                 }
             }
-          
-           
         }
 
-        public void HandleInputSecond(List <Subject> SubjectList)
+        public void HandleInput2(List<Subject> SubjectList)
         {
+            AdminSystem system = new AdminSystem();
             bool running = true;
 
             while (running)
@@ -111,12 +112,12 @@ namespace StudentAdministration
                         break;
                     case 2:
                         Console.WriteLine("Okay, showing the main menu again:");
-                        // needs help
+                        system.MainMenu();
                         running = false;
                         break;
                     case 3:
                         Console.WriteLine("Goodbye!");
-                        Environment.Exit(1);
+                        Environment.Exit(2);
                         break;
                     default:
                         Console.WriteLine("You have to pick an option. Please try again.");
@@ -125,19 +126,76 @@ namespace StudentAdministration
             }
         }
 
-        public void SubjectSelect(List<Subject> allSubjects)
-        {   
+        private void SubjectSelect(List<Subject> allSubjects)
+        {
             Console.WriteLine("Please select a subject you want to view:");
             for (int i = 0; i < _studentSubjects.Count; i++)
             {
-                string sub = 
+                string sub =
                     allSubjects.Where(subject => subject.Code == _studentSubjects[i]).FirstOrDefault().Name;
-                Console.WriteLine($"{i+1}. {sub}"); 
+                Console.WriteLine($"{i + 1}. {sub}");
             }
+
 
         }
 
+        public void HandleInput3(List<Grade> allGrades, List<Subject> allSubjects)
+        {
+            int input = Convert.ToInt32(Console.ReadLine());
+
+            string subjectName = allSubjects.Where(s => s.Code == input - 1).FirstOrDefault().Name;
+
+            List<Grade> studentGrades = allGrades.Where(g => g.StudentId == Id).ToList();
+
+            Console.WriteLine($"Showing {_name}'s grade in {subjectName}:"); //er denne fool proof?
+            Console.WriteLine($"{studentGrades[input - 1].GetGradeValue()}");
+
+
+
+            //gjør det samme som den over: 
+
+            //List<Grade> studentGrades = new List<Grade>();
+
+            //foreach (Grade grade in allGrades.Where(g => g.StudentId == Id))
+            //{
+            //    studentGrades.Add(grade);
+            //}
+
+        }
+
+        public void HandleInput4(List<Subject> allSubjects)
+        {
+            AdminSystem system = new AdminSystem();
+
+            Console.WriteLine("What do you want to do now?");
+            bool running = true;
+
+            while (running)
+            {
+                Console.WriteLine("1. Go back to subjects menu. \n2. Change student. \n3. Exit");
+                int input = Convert.ToInt32(Console.ReadLine());
+
+                switch (input)
+                {
+                    case 1:
+                        SubjectSelect(allSubjects); //bug? 
+                        running = false;
+                        break;
+                    case 2:
+                        system.MainMenu();
+                        running = false;
+                        break;
+                    case 3:
+                        Environment.Exit(3);
+                        break;
+                    default:
+                        Console.WriteLine("You have to pick a valid option.");
+                        break;
+                }
+            }
+        }
+
     }
-    //_studentSubjects[i] == allSubjects.Code[i]).Name;
-    //var subject in allSubjects.Where(subject => _studentSubjects.Contains(subject.Code)))
 }
+
+

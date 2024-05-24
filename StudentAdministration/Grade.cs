@@ -10,7 +10,7 @@ namespace StudentAdministration
     {
         public int StudentId { get; private set; }
         public Subject Subject { get; private set; }
-        public int Value { get; private set; }
+        private int Value;
 
         public Grade(int studentId, Subject subject, int value)
         {
@@ -18,6 +18,9 @@ namespace StudentAdministration
             Subject = subject;
             Value = value;
         }
+
+        public int GetGradeValue() 
+        { return Value; }
 
         
         //public void PrintInfo()

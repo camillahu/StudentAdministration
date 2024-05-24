@@ -3,10 +3,10 @@ using StudentAdministration;
 
 var system = new AdminSystem();
 
-//while (true)
-//{
+while (true)
+{
     system.MainMenu();
-//}
+}
 
 
 

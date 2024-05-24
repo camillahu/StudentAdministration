@@ -54,23 +54,25 @@ namespace StudentAdministration
                 Console.WriteLine("Student does not exist. By default the first student will show.");
                 input = 0;
             }
-            
             return StudentsList[input -1];
-
         }
 
 
         public void MainMenu()
-        {
+        {   
             Console.WriteLine("Welcome to student administration. Please pick a student:");
             ShowStudents();
 
             Student selectedStudent = SelectStudent();
             selectedStudent.PrintInfo();
             Console.WriteLine($"Do you want to see {selectedStudent.GetName()}s subjects?");
-            selectedStudent.HandleInputFirst(SubjectsList);
+            selectedStudent.HandleInput1(SubjectsList);
             Console.WriteLine("Do you want to see this students grades in any subjects?");
-            selectedStudent.HandleInputSecond(SubjectsList);
+            selectedStudent.HandleInput2(SubjectsList);
+            selectedStudent.HandleInput3(GradesList, SubjectsList);
+            selectedStudent.HandleInput4(SubjectsList);
+
+
         }
     }
 
