@@ -49,10 +49,15 @@ namespace StudentAdministration
         Student SelectStudent()
         {
             int input = Convert.ToInt32(Console.ReadLine());
-            if (input < 0 || input > StudentsList.Count)
+
+            if (input <= 0 || input > StudentsList.Count)
             {
-                Console.WriteLine("Student does not exist. By default the first student will show.");
-                input = 0;
+                Console.WriteLine("Student does not exist. Please pick a option from the list:");
+                do
+                {
+                    ShowStudents();
+                    input = Convert.ToInt32(Console.ReadLine());
+                } while (input < 0 || input > StudentsList.Count);
             }
             return StudentsList[input -1];
         }
