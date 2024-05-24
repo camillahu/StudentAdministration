@@ -15,7 +15,7 @@ namespace StudentAdministration
 
         private List<int> _studentSubjects;
         private List<Grade> _studentGrades;
-        private int _averageGrade; 
+        private double _averageGrade; 
 
         public Student(string name, int age, string program, int id, List<int> subjects)
         {
@@ -24,6 +24,7 @@ namespace StudentAdministration
             _program = program;
             Id = id;
             _studentSubjects = subjects;
+            _studentGrades = GetGrades();
             _averageGrade = GetAverage();
         }
 
@@ -36,7 +37,6 @@ namespace StudentAdministration
         //{
         //    _studentSubjects.Remove(subjectCode);
         //}
-
 
         private void GetSubjects(List<Subject> allSubjects)
         {
@@ -59,9 +59,13 @@ namespace StudentAdministration
         public double GetAverage()
         {
             int sum = 0;
-            GetGrades()= 
+            foreach (Grade grade in _studentGrades)
+            {
+                int gradeValue = grade.GetGradeValue();
+                sum += gradeValue;
+            }
 
-            double average = GetGrades(allGrades)/allGrades.Count;
+            double average = sum/_studentGrades.Count;
             return average;
         }
 
