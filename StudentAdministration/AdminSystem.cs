@@ -69,17 +69,14 @@ namespace StudentAdministration
             ShowStudents();
 
             Student selectedStudent = SelectStudent();
-            selectedStudent.PrintInfo();
+            selectedStudent.PrintInfo(GradesList);
             Console.WriteLine($"Do you want to see {selectedStudent.GetName()}s subjects?");
             selectedStudent.HandleInput1(SubjectsList);
             Console.WriteLine("Do you want to see this students grades in any subjects?");
             selectedStudent.HandleInput2(SubjectsList);
             selectedStudent.HandleInput3(GradesList, SubjectsList);
             selectedStudent.HandleInput4(SubjectsList);
-
-
         }
     }
 
-    
 }

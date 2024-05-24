@@ -14,7 +14,8 @@ namespace StudentAdministration
         public int Id { get; private set; }
 
         private List<int> _studentSubjects;
-        private List<int> _studentGrades;
+        private List<Grade> _studentGrades;
+        private int _averageGrade; 
 
         public Student(string name, int age, string program, int id, List<int> subjects)
         {
@@ -23,17 +24,18 @@ namespace StudentAdministration
             _program = program;
             Id = id;
             _studentSubjects = subjects;
+            _averageGrade = GetAverage();
         }
 
-        private void AddSubject(int subjectCode)
-        {
-            _studentSubjects.Add(subjectCode);
-        }
+        //private void AddSubject(int subjectCode)
+        //{
+        //    _studentSubjects.Add(subjectCode);
+        //}
 
-        private void RemoveSubject(int subjectCode)
-        {
-            _studentSubjects.Remove(subjectCode);
-        }
+        //private void RemoveSubject(int subjectCode)
+        //{
+        //    _studentSubjects.Remove(subjectCode);
+        //}
 
 
         private void GetSubjects(List<Subject> allSubjects)
@@ -46,19 +48,38 @@ namespace StudentAdministration
             }
         }
 
+        public void GetGrades(List<Grade> allGrades)
+        {   
+            foreach (Grade grade in allGrades.Where(g => g.StudentId == Id))
+            {
+                _studentGrades.Add(grade);
+            }
+
+        }
+        public double GetAverage()
+        {
+            int sum = 0;
+            GetGrades()= 
+
+            double average = GetGrades(allGrades)/allGrades.Count;
+            return average;
+        }
+
         public string GetName() // dette er måten man gjør det på om name er private. 
         {
             return _name;
         }
 
-        public void PrintInfo()
+        public void PrintInfo(List<Grade> allGrades)
         {
+            GetGrades(allGrades);
             Console.WriteLine();
             Console.WriteLine($"Student:\n" +
                               $"Name: {_name} \n" +
                               $"Age: {_age} \n" +
                               $"Program: {_program} \n" +
                               $"Id: {Id} \n" +
+                              $"Id: {_averageGrade} \n" +
                               $"\n");
         }
 
@@ -194,6 +215,9 @@ namespace StudentAdministration
                 }
             }
         }
+
+
+        
 
     }
 }
