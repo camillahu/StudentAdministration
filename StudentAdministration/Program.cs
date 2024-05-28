@@ -5,7 +5,7 @@ var system = new AdminSystem();
 
 while (true)
 {
-    system.MainMenu();
+    system.MainMenu(system);
 }
 
 
